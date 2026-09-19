@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://himath-rajapaksha.github.io/sitemap.xml
