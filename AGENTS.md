@@ -35,10 +35,11 @@ Himath-Rajapaksha/                  # working dir (not a git repo)
     ├── index.html                  # entire site (HTML + inline CSS/JS)
     ├── robots.txt
     ├── sitemap.xml
-    └── assets/                     # portrait.jpg + project screenshots
-        ├── portrait.jpg
-        ├── MacTop.png  # single tracked casing (consolidated 2026-10-26)
+    └── assets/                     # portrait + project screenshots + SVG tiles
+        ├── portrait.jpg            # hero (loading="eager")
+        ├── MacTop.png              # single tracked casing (consolidated 2026-10-26)
         ├── Huddl.png, AFO.png, Cap.png
+        └── devpad.svg, shipnotes.svg, whitespace.svg, smartcrm.svg, kickblast.svg, sadl.svg   # project placeholder tiles
 ```
 
 The git repo is `Himath-Rajapaksha.github.io/` (remote: origin/main). Run git
