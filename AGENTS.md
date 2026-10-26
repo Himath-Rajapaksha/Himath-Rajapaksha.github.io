@@ -37,7 +37,7 @@ Himath-Rajapaksha/                  # working dir (not a git repo)
     ├── sitemap.xml
     └── assets/                     # portrait.jpg + project screenshots
         ├── portrait.jpg
-        ├── Mactop.png, MacTop.png  # note: two casings exist — keep both or clean up
+        ├── MacTop.png  # single tracked casing (consolidated 2026-10-26)
         ├── Huddl.png, AFO.png, Cap.png
 ```
 
@@ -75,13 +75,19 @@ commands with `-C` or `cd` into it.
 
 ## Known issues / gotchas (fix when touching related code)
 
-1. **Duplicate `checked` on nav radios** — both `#nav-home` and `#nav-work` carry `checked`; only the last wins. Remove `checked` from `#nav-work`.
-2. **Duplicate `.btn` CSS** — defined once in the hero block (padding 13px 24px, radius 10px) and again in the contact block (0.85rem 1.8rem, radius 10px). Consolidate.
-3. **Orphan CSS fragment** around the `.contact-info` rule (lines ~622–624): stray `outline: none; transition: …; }` with no selector. Remove.
-4. **Extra closing `</div>`** in the projects section (after the grid). Remove to keep DOM balanced.
-5. **Undefined classes** referenced in markup but not styled: `.section-label`, `.section-desc`, `.project-row` (and its `.reverse`). Either style them or drop the references.
-6. **Two asset casings:** `Mactop.png` and `MacTop.png` both exist; HTML references `Mactop.png`. Consolidate to one file to avoid case-sensitivity bugs on Linux/Pages.
-7. **No `section-label`/`section-desc` styles** — headings render unstyled.
+Status after the 2026-10-26 portfolio redesign — all previously listed gotchas
+are resolved (single `checked` on `#nav-home`, one consolidated `.btn` rule,
+orphan CSS removed, balanced DOM, styled `.section-label`/`.section-desc`
+headings, reduced-motion `.fi` visibility). Keep this list live: add new
+findings here, don't reopen the closed ones.
+
+1. **RESOLVED (2026-10-26): duplicate `checked` on nav radios** — single `checked` remains on `#nav-home`; `#nav-work` has none.
+2. **RESOLVED (2026-10-26): duplicate `.btn` CSS** — consolidated into a single `.btn` rule in the design-system style block.
+3. **RESOLVED (2026-10-26): orphan CSS fragment** near the old `.contact-info` rule — stray properties with no selector were removed.
+4. **RESOLVED (2026-10-26): extra closing `</div>`** in the projects section — removed; markup balanced.
+5. **RESOLVED (2026-10-26): undefined classes** — `.section-label` and `.section-desc` are styled; stale `.project-row` (and `.reverse`) references dropped.
+6. **RESOLVED (2026-10-26): asset casing** — single tracked `assets/MacTop.png`; HTML and tree reference that one casing only.
+7. **RESOLVED (2026-10-26): unstyled `section-label`/`section-desc` headings** — styled in the redesign (overlaps item 5).
 
 ## Do not
 
