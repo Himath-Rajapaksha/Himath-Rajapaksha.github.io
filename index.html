@@ -276,7 +276,7 @@
     /* ==========================================================
        ABOUT — statement head (non-sticky), single column, 60ch copy
        ========================================================== */
-    .about .section-head,.training .section-head{position:relative;z-index:auto}
+    .about .section-head,.training .section-head,.contact .section-head{position:relative;z-index:auto}
     .about-statement{max-width:60ch}
     .about-copy{max-width:60ch;margin-top:var(--space-md);color:var(--color-body);font-size:16px}
     .achievements{margin-top:var(--space-md);font-family:var(--font-body);font-size:12.8px;line-height:1.8;color:var(--color-ink-soft)}
@@ -295,6 +295,36 @@
     .training .k{font-family:var(--font-body);font-size:12.8px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-ink-soft)}
     .training-grid{display:grid;gap:var(--space-sm);margin-top:var(--space-md)}
     @media (min-width:1200px){.training-grid{grid-template-columns:repeat(3,1fr)}}
+
+    /* ==========================================================
+       CONTACT — centered band; one brand-gradient CTA, quiet links
+       ========================================================== */
+    .contact{text-align:center}
+    .contact-sub{max-width:60ch;margin:var(--space-md) auto 0;color:var(--color-body);font-family:var(--font-body);font-size:16px;line-height:1.5}
+    .contact-actions{display:flex;justify-content:center;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-md)}
+
+    /* ==========================================================
+       FOOTER — single blush gradient card after main; the brand
+       gradient stays CTA-only, so this card uses --gradient-blush.
+       Ink/soft text only (contrast computed against both gradient
+       endpoints and their midpoint; all ≥ 7:1).
+       ========================================================== */
+    .footer-card{max-width:var(--size-container);margin:0 auto 24px;padding:var(--space-lg);border-radius:var(--radius-card);background:var(--gradient-blush);border:1px solid var(--hairline);color:var(--color-body)}
+    .footer-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md);flex-wrap:wrap}
+    .footer-tagline{max-width:46ch;color:var(--color-body);font-family:var(--font-body);font-size:16px;line-height:1.5}
+    .footer-cols{display:grid;gap:var(--space-md);grid-template-columns:repeat(2,1fr);margin-top:var(--space-lg)}
+    .footer-col-label{margin-bottom:var(--space-sm);color:var(--color-ink-soft);font-family:var(--font-body);font-size:12.8px;letter-spacing:.06em;text-transform:uppercase}
+    .footer-col a{display:block;width:fit-content;color:var(--color-ink);font-family:var(--font-display);font-weight:500;font-size:16px;line-height:1.7;letter-spacing:.32px;text-decoration:none}
+    .footer-col a:hover{text-decoration:underline}
+    .social-row{display:flex;align-items:center;gap:var(--space-sm);margin-top:var(--space-lg)}
+    .social-btn{width:44px;height:44px;border-radius:var(--radius-btn);background:var(--color-white);display:grid;place-items:center;color:var(--color-ink);text-decoration:none;transition:filter var(--duration-reveal) ease}
+    .social-btn:hover{filter:brightness(.94)}
+    .social-btn svg{width:20px;height:20px}
+    .footer-meta{margin-top:var(--space-lg);padding-top:var(--space-md);border-top:1px solid var(--hairline);font-family:var(--font-body);font-size:12.8px;color:var(--color-ink-soft)}
+    @media (max-width:640px){
+      .footer-card{padding:var(--space-md)}
+      .footer-cols{grid-template-columns:1fr}
+    }
 
     /* ==========================================================
        REDUCED MOTION — stop everything ambient; reveals become static
@@ -580,7 +610,52 @@
         </div>
       </div>
     </section>
+
+    <!-- CONTACT — centered band; one gradient CTA (header keeps its own), quiet secondary links -->
+    <section class="contact" id="contact" aria-label="Contact">
+      <div class="container">
+        <div class="section-head fi">
+          <p class="section-label">Contact</p>
+          <h2>Want to get in touch?<br><em>Drop a line.</em></h2>
+        </div>
+        <p class="contact-sub fi">AppSec internships, security review help, or a build — replies go straight to my inbox.</p>
+        <div class="contact-actions fi fi-d1">
+          <a href="mailto:himath.hr@gmail.com" class="btn btn--gradient">Email me</a>
+          <a href="tel:+94772610027" class="btn btn--quiet">+94-772610027</a>
+          <a href="https://www.linkedin.com/in/himath-rajapaksha/" target="_blank" rel="noopener" class="btn btn--quiet">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- FOOTER — single blush gradient card between </main> and scripts -->
+  <footer class="footer-card" aria-label="Site footer">
+    <div class="footer-row fi">
+      <a class="brand" href="#hero" aria-label="Himath Rajapaksha — home"><span class="brand-tile" aria-hidden="true">HR</span></a>
+      <p class="footer-tagline">Application Security Engineer &amp; Full-Stack Developer</p>
+    </div>
+    <div class="footer-cols fi fi-d1">
+      <div class="footer-col">
+        <p class="footer-col-label">Navigation</p>
+        <a href="#hero">Home</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Get in touch</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-label">Resources</p>
+        <a href="https://github.com/Himath-Rajapaksha" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/himath-rajapaksha/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:himath.hr@gmail.com">himath.hr@gmail.com</a>
+      </div>
+    </div>
+    <div class="social-row fi fi-d2">
+      <a class="social-btn" href="https://github.com/Himath-Rajapaksha" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.91c.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.53-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.05.78 2.12v3.15c0 .31.2.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg></a>
+      <a class="social-btn" href="https://www.linkedin.com/in/himath-rajapaksha/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a class="social-btn" href="mailto:himath.hr@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+    </div>
+    <p class="footer-meta fi fi-d2">&copy; Himath Rajapaksha · 2026</p>
+  </footer>
 
   <script>
     // Reveal: add .v to each .fi once it is 15% visible, then unobserve.
