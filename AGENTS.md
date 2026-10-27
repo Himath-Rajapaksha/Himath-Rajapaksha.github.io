@@ -48,6 +48,7 @@ commands with `-C` or `cd` into it.
 ## Tech stack
 
 - Static HTML/CSS/JS only — no package.json, no bundler, no framework.
+- Fonts: Clash Grotesk 500/600 (`--font-display`) + Inter 400/700/900 (`--font-body`), loaded from the Fontshare/Google Fonts CDNs with preconnects — no vendoring.
 - Deployed via GitHub Pages (branch deploy, not Actions — see commit `23112fa`).
 - Live URL: https://himath.work/
 
@@ -57,38 +58,47 @@ commands with `-C` or `cd` into it.
 - **Deploy:** commit + push to `main` of `Himath-Rajapaksha.github.io`; Pages rebuilds.
 - **Update resume:** regenerate both `.docx` and `.pdf` (keep the `2026aug07`-style date suffix; note the existing "Rsesume" typo in filenames — decide whether to rename and update any links).
 - **Add a project:** add screenshot to `assets/`, add an `<a class="project-card">` in the projects grid in `index.html`, and update alt text.
-- **Update SEO:** edit the meta/JSON-LD in `<head>` of `index.html`, plus `sitemap.xml` (`lastmod`) and `robots.txt`.
+- **Update SEO:** edit the meta/JSON-LD in `<head>` of `index.html` and bump `sitemap.xml`'s `lastmod`; `robots.txt` is frozen — do not edit it.
 
 ## Conventions
 
 - Single file: all markup, styles, and scripts live in `index.html`. Keep it that way unless there's a strong reason to split.
-- Inline CSS uses CSS variables in `:root` (`--bg`, `--text`, `--accent #E85D4A`, `--muted`, `--border`, `--sans` Inter). Reuse variables; don't hardcode colors.
-- Animations: `.fi` + `.fi-dN` fade-in classes driven by IntersectionObserver; `.flip-track` word rotation. Respect `prefers-reduced-motion`.
-- Responsive breakpoints: 900px, 768px, 640px.
-- Images: `loading="lazy"` except the hero portrait (`loading="eager"`). Keep `alt` text descriptive.
+- Inline CSS uses the rajib-kabir token set in `:root` — colors (`--color-bg #F5F1EC`, `--color-ink #1E1A1C`, `--color-ink-soft #3B3B3B`, `--color-body #2C2D2F`, `--color-white`, `--color-surface`, `--hairline`, `--gradient-brand`, `--gradient-blush`), radii (`--radius-card 20px`, `--radius-field 16px`, `--radius-pill 60px`, `--radius-btn 10px`), spacing (`12/16/30/100/120px`), sizes (`--size-container 1120px`, `--size-frame 1280px`, `--size-header 51px`), `--duration-reveal 600ms`. Reuse tokens; don't hardcode colors.
+- `--color-muted` and `--color-mist` are declared but deliberately NEVER consumed: `#7E8083` fails AA at body sizes and nothing in this build is a large-bold muted text. Keep them unused — the batteries assert zero `var()` uses.
+- Animations (motion inventory): hero marquees (`.marquee-track` via `marqueeL/R`, 36 s/46 s, `aria-hidden`, decorative copy), tooling ticker (`.ticker-track`, 30 s, IntersectionObserver pauses it offscreen), scroll reveals (`.fi` → `.v` via IntersectionObserver threshold .15 with `.fi-d1..3` stagger, 600 ms), card hover recipe (img scale 1.1 + blur 7px; blush overlay fades in at rotate −6°, wired to hover AND `:focus-visible`), one sticky section title (`.section-head`, only in `.work`). The header is absolute and intentionally non-sticky (scrolls away).
+- `prefers-reduced-motion: reduce` rules must stay style-final: zero out animation/transition durations, reset `scroll-behavior` to `auto`, freeze marquee/ticker tracks, force `.fi` visible. The `<head>` `<noscript>` guard keeps reveals visible without JS — when touching motion, QA both (static checks cover them).
+- CTA-only gradient: `--gradient-brand` appears only on `.btn--gradient` CTAs — exactly one per surface family (header, hero, contact). Gradient button labels are `var(--color-ink)`: white failed the ≥3:1 endpoint gate on `#FF7A38` (2.59:1 computed), so the ruled fallback switched labels to ink (see design-spec ruling); don't revert to white without re-measuring.
+- No drop shadows: depth comes from frosted translucency (`--color-surface` + `backdrop-filter`) and hairlines (`--hairline`); cards carry no `box-shadow` (batteries fail anything but `none`).
+- Responsive breakpoints: `min-width:768px` (nav links appear), `min-width:1200px` (work masonry `612fr 410fr`, training 3-up), with mobile variants `max-width:767.98px` (section padding 80/64) and `max-width:640px` (footer stacks single-column).
+- Images: `loading="lazy"` except the hero portrait (`loading="eager"`, `fetchpriority="high"`). Every `<img>` must carry BOTH `width` and `height` attributes — it's the no-layout-shift gate. Keep `alt` text descriptive.
 - Git commits: short imperative subject, often `feat:`/`fix:`/`Update` (see log: `feat: add SEO meta tags…`, `Fix footer: …`, `Update portfolio: …`). Keep subjects concise.
 
 ## SEO / structured data — don't break these
 
 - `<title>`, meta description/keywords, canonical URL, OG + Twitter cards, and the JSON-LD `Person` block in `<head>`.
-- `robots.txt` and `sitemap.xml` (single URL, priority 1.0).
+- `sitemap.xml` (single URL, priority 1.0; bump `lastmod` when real content changes) and `robots.txt` — robots is frozen: do not modify it, ever.
 - If the canonical/site URL changes, update all of the above plus `sameAs` links.
 
 ## Known issues / gotchas (fix when touching related code)
 
-Status after the 2026-10-26 portfolio redesign — all previously listed gotchas
-are resolved (single `checked` on `#nav-home`, one consolidated `.btn` rule,
-orphan CSS removed, balanced DOM, styled `.section-label`/`.section-desc`
-headings, reduced-motion `.fi` visibility). Keep this list live: add new
-findings here, don't reopen the closed ones.
+Status after the 2026-10-27 rajib-kabir restyle — the theme swapped the 2026-10-26
+build's fonts/palette/radius/spacing/breakpoints/motion (see Conventions); the QA
+sweep of that restyle is in the git log (gradient CTA label switched to ink for
+contrast, ticker strip padding + aria-label casing fixed, footer tagline restored
+to the full source title line). Keep this list live: add new findings here, don't
+reopen the closed ones.
 
-1. **RESOLVED (2026-10-26): duplicate `checked` on nav radios** — single `checked` remains on `#nav-home`; `#nav-work` has none.
+1. **RESOLVED (2026-10-26): duplicate `checked` on nav radios** — single `checked` remains on `#nav-home`; `#nav-work` has none. (The radio-nav pattern is gone entirely since the restyle; nav is plain anchors now.)
 2. **RESOLVED (2026-10-26): duplicate `.btn` CSS** — consolidated into a single `.btn` rule in the design-system style block.
 3. **RESOLVED (2026-10-26): orphan CSS fragment** near the old `.contact-info` rule — stray properties with no selector were removed.
 4. **RESOLVED (2026-10-26): extra closing `</div>`** in the projects section — removed; markup balanced.
 5. **RESOLVED (2026-10-26): undefined classes** — `.section-label` and `.section-desc` are styled; stale `.project-row` (and `.reverse`) references dropped.
 6. **RESOLVED (2026-10-26): asset casing** — single tracked `assets/MacTop.png`; HTML and tree reference that one casing only.
 7. **RESOLVED (2026-10-26): unstyled `section-label`/`section-desc` headings** — styled in the redesign (overlaps item 5).
+8. **OPEN (2026-10-27, deferred): redundant nested `aria-hidden="true"` span** on the card-overlay ↗ arrow (the parent `.card-overlay` is already `aria-hidden`) — cosmetic; leave for the whole-branch final review.
+9. **OPEN (2026-10-27, deferred): heading-level skip h2 → h4** in the education/training cards (inherited source semantics) — needs a deliberate heading strategy, not a silent retag.
+10. **OPEN (2026-10-27, deferred): footer Navigation column is a plain `<div>`, not `<nav>`** — all links are keyboard-reachable; revisit only if nav-grouping matters to the owner.
+11. **OPEN (2026-10-27, deferred): hero < 768px edge padding** — `.hero-stage` text/portrait run close to the screen edge on phones; a small horizontal padding is the likely fix (belongs to the owner's preview pass).
 
 ## Do not
 

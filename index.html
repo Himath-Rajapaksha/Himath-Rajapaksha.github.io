@@ -155,7 +155,7 @@
       text-decoration:none;cursor:pointer;
       transition:filter var(--duration-reveal) ease;
     }
-    .btn--gradient{background:var(--gradient-brand);color:var(--color-white)}
+    .btn--gradient{background:var(--gradient-brand);color:var(--color-ink)}
     .btn--gradient:hover{filter:brightness(1.06)}
     .btn--quiet{background:transparent;color:var(--color-ink)}
     .btn--quiet:hover{text-decoration:underline}
@@ -266,7 +266,7 @@
     /* ==========================================================
        TICKER — tooling strip, hairline top/bottom, seam-free loop
        ========================================================== */
-    .ticker{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+    .ticker{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:48px 0 56px}
     .ticker-label{text-align:center;font-family:var(--font-body);font-size:12.8px;letter-spacing:.06em;color:var(--color-ink-soft);margin-bottom:var(--space-md)}
     .ticker-row{overflow:hidden}
     .ticker-track{display:inline-flex;gap:var(--space-md);animation:tickerL 30s linear infinite}
@@ -528,7 +528,7 @@
     </section>
 
     <!-- TOOLING TICKER — Task-1 pause hook finds .ticker-track; trailing slot keeps -50% seam-free -->
-    <section class="ticker fi" aria-label="Tools and technologies">
+    <section class="ticker fi" aria-label="Tools and Technologies">
       <div class="container">
         <p class="ticker-label">Tooling&nbsp;&amp;&nbsp;Technologies</p>
         <div class="ticker-row">
@@ -632,7 +632,7 @@
   <footer class="footer-card" aria-label="Site footer">
     <div class="footer-row fi">
       <a class="brand" href="#hero" aria-label="Himath Rajapaksha — home"><span class="brand-tile" aria-hidden="true">HR</span></a>
-      <p class="footer-tagline">Application Security Engineer &amp; Full-Stack Developer</p>
+      <p class="footer-tagline">Himath Rajapaksha — Application Security Engineer &amp; Full-Stack Developer</p>
     </div>
     <div class="footer-cols fi fi-d1">
       <div class="footer-col">
