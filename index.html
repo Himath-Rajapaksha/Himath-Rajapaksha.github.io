@@ -241,11 +241,8 @@
     .project-card:hover .card-media img,.project-card:focus-visible .card-media img{transform:scale(1.1);filter:blur(7px)}
     .project-card:hover .card-overlay,.project-card:focus-visible .card-overlay{opacity:1;transform:rotate(-6deg)}
 
-    /* Sticky section titles ride behind scrolling content */
-    .section-head{position:sticky;top:20px;z-index:0}
-
     /* ==========================================================
-       WORK — asymmetric masonry over a sticky section title
+       WORK — asymmetric masonry
        (Task 2 consumes the pinned motion primitives above)
        ========================================================== */
     section{padding:120px 0 100px}
@@ -283,9 +280,8 @@
     @keyframes tickerL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     /* ==========================================================
-       ABOUT — statement head (non-sticky), single column, 60ch copy
+       ABOUT — statement head, single column, 60ch copy
        ========================================================== */
-    .about .section-head,.training .section-head,.contact .section-head{position:relative;z-index:auto}
     .about-statement{max-width:60ch}
     .about-copy{max-width:60ch;margin-top:var(--space-md);color:var(--color-body);font-size:16px}
     .achievements{margin-top:var(--space-md);font-family:var(--font-body);font-size:12.8px;line-height:1.8;color:var(--color-ink-soft)}
