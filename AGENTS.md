@@ -118,6 +118,7 @@ here, don't reopen the closed ones.
 9. **OPEN (a11y nicety): prefers-reduced-motion doesn't cover `.fi` reveals** — extending the frozen set is sanctioned; don't shoehorn other motion changes at the same time.
 10. **LOCKED: robots.txt** — locally reads `Sitemap: https://himath.work/sitemap.xml` (owner's `7dd1ba2` migration; publishes on push). Never edit robots.txt; treat as correct-by-construction.
 11. **HISTORY NOTE: the rajib-kabir restyle (commits `824531a..7e66d19`) is rejected design history** — its extra sections (training, education, frosted cards, sticky section heads, ticker, footer nav) do NOT exist in this design. mined for content only, never for style, without owner direction.
+12. **Wired 2026-10-27: eleven project cards** (4 legacy AI-render cards + 7 regenerated tiles) in `.projects-grid` — the hard 2-col grid leaves the 11th card (ShipNotes) alone in the final row's left cell; the right cell is empty and blends into the white section background. Options when the owner wants: add a 12th tile, span the last card full-width (`grid-column: span 2` — visual change, owner's call), or rebalance card order.
 
 ## Do not
 
