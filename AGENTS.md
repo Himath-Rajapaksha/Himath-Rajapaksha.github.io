@@ -33,7 +33,7 @@ rejected reference; do not re-theme or restyle without explicit owner direction.
 - **LinkedIn:** https://www.linkedin.com/in/himath-rajapaksha/
 - **Education:** BSc (Hons) Cyber Security & Digital Forensics, Kingston University (2026–2027); Pearson BTEC Level 5 HND Computing (Cyber Security), ESOFt Metro Campus — Distinction (2025–2026)
 - **Focus:** AppSec, RBAC, PostgreSQL RLS, hardened APIs; open to remote/hybrid AppSec internships
-- **Tooling stack (marquee):** TypeScript, React, Node.js, Next.js, Tauri, Python, Rust, C#, PostgreSQL, Docker, Git, WebRTC, AppSec, Redis, Linux, JavaScript
+- **Tooling stack (marquee):** TypeScript, React, Node.js, Next.js, Tauri, Python, Rust, C#, PostgreSQL, Docker, Git, WebRTC, AppSec, Redis, Linux, JavaScript, eBPF, CI/CD
 
 Keep these consistent across `index.html`, the JSON-LD `Person` block, OG/Twitter
 meta, and the resume files. If one changes, update all.
@@ -118,7 +118,7 @@ here, don't reopen the closed ones.
 9. **OPEN (a11y nicety): prefers-reduced-motion doesn't cover `.fi` reveals** — extending the frozen set is sanctioned; don't shoehorn other motion changes at the same time.
 10. **LOCKED: robots.txt** — locally reads `Sitemap: https://himath.work/sitemap.xml` (owner's `7dd1ba2` migration; publishes on push). Never edit robots.txt; treat as correct-by-construction.
 11. **HISTORY NOTE: the rajib-kabir restyle (commits `824531a..7e66d19`) is rejected design history** — its extra sections (training, education, frosted cards, sticky section heads, ticker, footer nav) do NOT exist in this design. mined for content only, never for style, without owner direction.
-12. **Wired 2026-10-27: eleven project cards** (4 legacy AI-render cards + 7 regenerated tiles) in `.projects-grid` — the hard 2-col grid leaves the 11th card (ShipNotes) alone in the final row's left cell; the right cell is empty and blends into the white section background. Options when the owner wants: add a 12th tile, span the last card full-width (`grid-column: span 2` — visual change, owner's call), or rebalance card order.
+12. **RESOLVED (2026-10-27): 11-card odd grid** — 3y3 moved to the closing row and spanned full-width via `.project-card.full { grid-column: 1 / -1; }`: the grid now ends in five full rows plus one full-width quiet closer — no empty cell. If cards are added or removed later, re-check parity (even counts keep the tight grid; an odd count needs a spanning closer).
 
 ## Do not
 
