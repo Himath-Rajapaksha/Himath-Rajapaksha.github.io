@@ -119,7 +119,7 @@
 
     img{display:block;max-width:100%;height:auto}
 
-    .container{max-width:var(--size-container);margin:0 auto}
+    .container{max-width:var(--size-container);margin:0 auto;padding-inline:20px}
 
     ::selection{background:#F7E9E9;color:var(--color-ink)}
 
@@ -191,6 +191,9 @@
 
     .hero-stage{max-width:var(--size-frame);margin:0 auto}
 
+    /* Mobile inset: text/portrait bundle only — the two .marquee-row stay full-bleed */
+    .hero-stage > :not(.marquee-row){padding-inline:20px}
+
     .marquee-row{overflow:hidden;white-space:nowrap}
     .marquee-track{
       display:inline-flex;gap:24px;
@@ -249,7 +252,11 @@
     .section-label{color:var(--color-ink);font-family:var(--font-display);font-weight:500;font-size:24px;line-height:1.3}
 
     .work-grid{display:grid;gap:var(--space-sm);grid-template-columns:1fr;margin-top:var(--space-md);position:relative;z-index:1}
-    @media (min-width:1200px){.work-grid{grid-template-columns:612fr 410fr}}
+    @media (min-width:1200px){
+      .work-grid{grid-template-columns:612fr 410fr}
+      /* Desktop restore: measured 1120px content width, no inline inset */
+      .container,.hero-stage > :not(.marquee-row){padding-inline:0}
+    }
 
     .project-card{position:relative;display:block;overflow:hidden;padding:var(--space-sm);background:var(--color-surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--hairline);border-radius:var(--radius-card);text-decoration:none}
     .card-media{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:var(--radius-field)}
@@ -309,7 +316,7 @@
        Ink/soft text only (contrast computed against both gradient
        endpoints and their midpoint; all ≥ 7:1).
        ========================================================== */
-    .footer-card{max-width:var(--size-container);margin:0 auto 24px;padding:var(--space-lg);border-radius:var(--radius-card);background:var(--gradient-blush);border:1px solid var(--hairline);color:var(--color-body)}
+    .footer-card{max-width:var(--size-container);margin:0 auto 24px;padding:var(--space-lg);padding-inline:20px;border-radius:var(--radius-card);background:var(--gradient-blush);border:1px solid var(--hairline);color:var(--color-body)}
     .footer-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md);flex-wrap:wrap}
     .footer-tagline{max-width:46ch;color:var(--color-body);font-family:var(--font-body);font-size:16px;line-height:1.5}
     .footer-cols{display:grid;gap:var(--space-md);grid-template-columns:repeat(2,1fr);margin-top:var(--space-lg)}
@@ -322,8 +329,12 @@
     .social-btn svg{width:20px;height:20px}
     .footer-meta{margin-top:var(--space-lg);padding-top:var(--space-md);border-top:1px solid var(--hairline);font-family:var(--font-body);font-size:12.8px;color:var(--color-ink-soft)}
     @media (max-width:640px){
-      .footer-card{padding:var(--space-md)}
+      .footer-card{padding:var(--space-md);padding-inline:20px}
       .footer-cols{grid-template-columns:1fr}
+    }
+    @media (min-width:1200px){
+      /* Desktop restore: measured footer geometry (30px inline) */
+      .footer-card{padding-inline:var(--space-lg)}
     }
 
     /* ==========================================================
@@ -364,7 +375,7 @@
         </div>
 
         <div class="hero-portrait fi fi-d1">
-          <img src="assets/portrait.jpg" alt="Himath Rajapaksha, Application Security Engineer, in a monochrome portrait" loading="eager" fetchpriority="high" width="1600" height="686">
+          <img src="assets/portrait.jpg" alt="Himath Rajapaksha, Application Security Engineer, in a monochrome portrait" loading="eager" fetchpriority="high" width="1469" height="1071">
         </div>
 
         <h1 class="hero-title fi fi-d2">Himath Rajapaksha builds <em>secure</em> software&ensp;—</h1>
