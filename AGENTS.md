@@ -99,6 +99,7 @@ chooses to publish.
 ## SEO / structured data — don't break these
 
 - `<title>`, meta description/keywords, canonical URL, OG + Twitter cards, and the JSON-LD `Person` block in `<head>`.
+- **`<title>` is just `Himath.work`** (2026-10-27, owner directive — clean browser tab). The descriptive tagline stays in og:title / twitter:title / JSON-LD `name` / meta description — don't re-expand `<title>` without owner direction.
 - **Canonical URL = `https://himath.work/` everywhere** in index.html (canonical, og:url, og:image, twitter:image, JSON-LD `url`/`image`) and in `sitemap.xml` (`lastmod 2026-10-27`). The old-domain himath-rajapaksha.github.io refs were migrated to himath.work by the owner's `7dd1ba2`; the 2026-10-27 restore preserved those URL strings.
 - `robots.txt` is FROZEN: locally it already reads `Sitemap: https://himath.work/sitemap.xml` (the owner's `7dd1ba2` migration; publishes on the next push), while origin's copy still shows the old domain, which resolves via the Pages redirect in the meantime. Do not modify robots.txt.
 - If the canonical/site URL changes, update all of the above plus `sameAs` links.
