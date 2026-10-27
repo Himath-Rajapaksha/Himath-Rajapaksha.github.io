@@ -232,14 +232,69 @@
     .fi-d2{transition-delay:160ms}
     .fi-d3{transition-delay:240ms}
 
-    .card-media img{transition:transform var(--duration-reveal) ease,filter var(--duration-reveal) ease}
     .card-overlay{position:absolute;inset:var(--space-sm);display:grid;place-items:center;gap:8px;background:var(--gradient-blush);border-radius:var(--radius-field);opacity:0;transform:rotate(-6deg) scale(0.98);transition:opacity var(--duration-reveal) ease,transform var(--duration-reveal) ease}
     .project-card:hover .card-media img,.project-card:focus-visible .card-media img{transform:scale(1.1);filter:blur(7px)}
     .project-card:hover .card-overlay,.project-card:focus-visible .card-overlay{opacity:1;transform:rotate(-6deg)}
 
     /* Sticky section titles ride behind scrolling content */
     .section-head{position:sticky;top:20px;z-index:0}
-    .work-grid{position:relative;z-index:1}
+
+    /* ==========================================================
+       WORK — asymmetric masonry over a sticky section title
+       (Task 2 consumes the pinned motion primitives above)
+       ========================================================== */
+    section{padding:120px 0 100px}
+    @media (max-width:767.98px){section{padding:80px 0 64px}}
+
+    .section-label{color:var(--color-ink);font-family:var(--font-display);font-weight:500;font-size:24px;line-height:1.3}
+
+    .work-grid{display:grid;gap:var(--space-sm);grid-template-columns:1fr;margin-top:var(--space-md);position:relative;z-index:1}
+    @media (min-width:1200px){.work-grid{grid-template-columns:612fr 410fr}}
+
+    .project-card{position:relative;display:block;overflow:hidden;padding:var(--space-sm);background:var(--color-surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--hairline);border-radius:var(--radius-card);text-decoration:none}
+    .card-media{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:var(--radius-field)}
+    .card-media img{width:100%;height:100%;object-fit:cover;transition:transform var(--duration-reveal) ease,filter var(--duration-reveal) ease}
+    .overlay-title{font-family:var(--font-display);font-weight:600;font-size:20px;line-height:1.2;color:var(--color-ink);text-align:center}
+    .overlay-arrow{font-family:var(--font-display);font-weight:600;font-size:20px;color:var(--color-ink)}
+    .card-body{display:grid;gap:8px;padding-top:var(--space-md)}
+    .card-body h3{font-family:var(--font-display);font-weight:600;font-size:18px;line-height:1.25;color:var(--color-ink)}
+    .card-meta{font-family:var(--font-body);font-size:12.8px;color:var(--color-ink-soft)}
+    .card-body p{color:var(--color-body);font-size:14px}
+    .chip-row{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{border-radius:var(--radius-pill);border:1px solid var(--hairline);padding:6px 12px;font-size:12.8px;font-family:var(--font-body);color:var(--color-ink-soft);background:transparent;display:inline-block}
+
+    /* ==========================================================
+       TICKER — tooling strip, hairline top/bottom, seam-free loop
+       ========================================================== */
+    .ticker{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+    .ticker-label{text-align:center;font-family:var(--font-body);font-size:12.8px;letter-spacing:.06em;color:var(--color-ink-soft);margin-bottom:var(--space-md)}
+    .ticker-row{overflow:hidden}
+    .ticker-track{display:inline-flex;gap:var(--space-md);animation:tickerL 30s linear infinite}
+    .ticker-track .chip{flex:none}
+    @keyframes tickerL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* ==========================================================
+       ABOUT — statement head (non-sticky), single column, 60ch copy
+       ========================================================== */
+    .about .section-head,.training .section-head{position:relative;z-index:auto}
+    .about-statement{max-width:60ch}
+    .about-copy{max-width:60ch;margin-top:var(--space-md);color:var(--color-body);font-size:16px}
+    .achievements{margin-top:var(--space-md);font-family:var(--font-body);font-size:12.8px;line-height:1.8;color:var(--color-ink-soft)}
+    .edu-list{display:grid;gap:var(--space-sm);margin-top:var(--space-md)}
+
+    /* ==========================================================
+       EDUCATION + TRAINING — frosted 20px cards, Clash titles
+       ========================================================== */
+    .edu-item{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-md);padding:var(--space-md);background:var(--color-surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--hairline);border-radius:var(--radius-card)}
+    .edu-info{min-width:0}
+    .edu-item h3,.edu-item h4{font-family:var(--font-display);font-weight:600;font-size:20px;line-height:1.25;color:var(--color-ink)}
+    .edu-item p{margin-top:4px;font-family:var(--font-body);font-size:14px;color:var(--color-body)}
+    .edu-year{font-family:var(--font-display);font-weight:500;font-size:14px;color:var(--color-ink);white-space:nowrap}
+    .training .edu-item{display:grid;gap:8px}
+    .training .edu-item p{margin-top:0}
+    .training .k{font-family:var(--font-body);font-size:12.8px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-ink-soft)}
+    .training-grid{display:grid;gap:var(--space-sm);margin-top:var(--space-md)}
+    @media (min-width:1200px){.training-grid{grid-template-columns:repeat(3,1fr)}}
 
     /* ==========================================================
        REDUCED MOTION — stop everything ambient; reveals become static
@@ -298,7 +353,233 @@
       </div>
     </section>
 
-    <!-- sections:work/appended-task2 -->
+    <!-- SELECTED WORK — sticky title rides behind the frosted masonry grid -->
+    <section class="work" id="work" aria-label="Selected Work">
+      <div class="container">
+        <div class="section-head fi">
+          <p class="section-label">Selected Work</p>
+          <h2>Shipped systems across security, developer tooling and desktop&nbsp;— each hardened by design.</h2>
+        </div>
+
+        <div class="work-grid">
+
+          <a class="project-card fi" href="https://github.com/Himath-Rajapaksha/MacTop" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/MacTop.png" alt="MacTop — macOS-style global menu bar for GNOME, screenshot" loading="lazy" width="1672" height="941">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">MacTop</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>MacTop</h3>
+              <p class="card-meta">GNOME Shell 45–50 · JS</p>
+              <p>Native macOS-style global menu bar for Linux: per-app File/Edit/View/Window menus, fast user switching, recent items — on Wayland &amp; X11.</p>
+              <div class="chip-row"><span class="chip">desktop-ux</span><span class="chip">linux-internals</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi fi-d1" href="https://github.com/Himath-Rajapaksha/Huddl" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/Huddl.png" alt="Huddl — secure mental-health telehealth platform, screenshot" loading="lazy" width="1672" height="940">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">Huddl</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>Huddl</h3>
+              <p class="card-meta">HealthTech · WebRTC / TLS</p>
+              <p>Secure telehealth platform: low-latency encrypted video over WebRTC, app-layer auth with explicit authorization states for clinical workflows.</p>
+              <div class="chip-row"><span class="chip">appsec</span><span class="chip">realtime</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi" href="https://github.com/Himath-Rajapaksha/AFO" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/AFO.png" alt="AFO — Advanced File Organizer with drag-and-drop rule canvas, screenshot" loading="lazy" width="1672" height="941">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">AFO — Advanced File Organizer</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>AFO — Advanced File Organizer</h3>
+              <p class="card-meta">Tauri + React</p>
+              <p>Real-time file watching with scheduled runs, drag-and-drop React Flow rule canvas, blake3 duplicate detection with quarantine and undo/redo.</p>
+              <div class="chip-row"><span class="chip">rust</span><span class="chip">data-integrity</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi fi-d1" href="https://github.com/Himath-Rajapaksha/Cap" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/Cap.png" alt="Cap — GNOME extension enforcing daily Wi-Fi data limits, screenshot" loading="lazy" width="1679" height="937">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">Cap</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>Cap</h3>
+              <p class="card-meta">GNOME Shell · /proc/net/dev</p>
+              <p>Minimal shell extension tracking daily Wi-Fi usage via kernel counters and disabling Wi-Fi through nmcli once a configurable cap is hit.</p>
+              <div class="chip-row"><span class="chip">linux</span><span class="chip">system-dev</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi" href="https://github.com/Himath-Rajapaksha/KickBlastFeeCalc" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/kickblast.svg" alt="KickBlast — C# desktop management system with RBAC, illustrative tile" loading="lazy" width="800" height="450">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">KickBlast Fee Calculator</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>KickBlast Fee Calculator</h3>
+              <p class="card-meta">C# WinForms · RBAC</p>
+              <p>Windows desktop management system with a custom authentication engine, RBAC-protected admin functions and validated SQL Server LocalDB persistence.</p>
+              <div class="chip-row"><span class="chip">csharp</span><span class="chip">access-control</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi fi-d1" href="https://github.com/Himath-Rajapaksha" target="_blank" rel="noopener" title="Smart CRM — private repository">
+            <div class="card-media">
+              <img src="assets/smartcrm.svg" alt="Smart CRM — AI-powered SaaS platform with Redis rate limiting, illustrative tile" loading="lazy" width="800" height="450">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">Smart CRM</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>Smart CRM</h3>
+              <p class="card-meta">AI SaaS · Redis</p>
+              <p>AI-powered SaaS: distributed rate limiting and API throttling to kill DoS/brute-force vectors, signed webhook integrations, strict input validation.</p>
+              <div class="chip-row"><span class="chip">api-security</span><span class="chip">webhooks</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi" href="https://devpad-lyart.vercel.app" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/devpad.svg" alt="DevPad — 25 free in-browser developer utilities, screenshot" loading="lazy" width="800" height="450">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">DevPad</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>DevPad</h3>
+              <p class="card-meta">25+ utilities · Offline PWA</p>
+              <p>Privacy-first developer toolkit running entirely client-side — zero accounts, zero tracking, installable and air-gap usable via service-worker caching.</p>
+              <div class="chip-row"><span class="chip">nextjs</span><span class="chip">pwa</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi fi-d1" href="https://shipnotes-taupe.vercel.app" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/shipnotes.svg" alt="ShipNotes — AI changelog generator from git history, screenshot" loading="lazy" width="800" height="450">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">ShipNotes</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>ShipNotes</h3>
+              <p class="card-meta">AI changelog · SaaS</p>
+              <p>LLM pipeline parses Git history into Keep-a-Changelog / GitHub Releases / minimal notes; freemium tiers with quota enforcement, zero-signup start.</p>
+              <div class="chip-row"><span class="chip">ai</span><span class="chip">dx</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi" href="https://whitespace-ashy.vercel.app" target="_blank" rel="noopener">
+            <div class="card-media">
+              <img src="assets/whitespace.svg" alt="Whitespace — minimal 95%-text reading platform, screenshot" loading="lazy" width="800" height="450">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">Whitespace</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>Whitespace</h3>
+              <p class="card-meta">Reading platform · Next.js</p>
+              <p>Distraction-free, 95%-text reading with curated long-form content, writer/admin publishing workflows, and motion-aware performance-first UI.</p>
+              <div class="chip-row"><span class="chip">content</span><span class="chip">performance</span></div>
+            </div>
+          </a>
+
+          <a class="project-card fi fi-d1" href="https://github.com/Himath-Rajapaksha" target="_blank" rel="noopener" title="SADL — final-year dissertation">
+            <div class="card-media">
+              <img src="assets/sadl.svg" alt="SADL — eBPF kernel telemetry for software supply-chain malware detection, illustrative tile" loading="lazy" width="800" height="450">
+              <div class="card-overlay" aria-hidden="true"><span class="overlay-title">SADL — Sentinel Detection Layer</span><span class="overlay-arrow" aria-hidden="true">↗</span></div>
+            </div>
+            <div class="card-body">
+              <h3>SADL — Sentinel Detection Layer</h3>
+              <p class="card-meta">eBPF · Thesis</p>
+              <p>Final-year research: kernel telemetry that watches package installation for supply-chain malware, with sandboxed detonation and multi-tier risk verdicts.</p>
+              <div class="chip-row"><span class="chip">ebpf</span><span class="chip">supply-chain</span></div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLING TICKER — Task-1 pause hook finds .ticker-track; trailing slot keeps -50% seam-free -->
+    <section class="ticker fi" aria-label="Tools and technologies">
+      <div class="container">
+        <p class="ticker-label">Tooling&nbsp;&amp;&nbsp;Technologies</p>
+        <div class="ticker-row">
+          <div class="ticker-track">
+            <span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">Python</span><span class="chip">Rust</span><span class="chip">C#</span><span class="chip">C</span><span class="chip">Java</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Docker</span><span class="chip">Git</span><span class="chip">Tauri</span><span class="chip">WebRTC</span><span class="chip">Linux</span><span class="chip">eBPF</span><span class="chip">AppSec</span><span class="chip">OWASP</span><span class="chip">Win32 API</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">Python</span><span class="chip">Rust</span><span class="chip">C#</span><span class="chip">C</span><span class="chip">Java</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Docker</span><span class="chip">Git</span><span class="chip">Tauri</span><span class="chip">WebRTC</span><span class="chip">Linux</span><span class="chip">eBPF</span><span class="chip">AppSec</span><span class="chip">OWASP</span><span class="chip">Win32 API</span><span aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT — statement head, then education history as frosted cards -->
+    <section class="about" id="about" aria-label="About and education">
+      <div class="container">
+        <div class="section-head fi">
+          <p class="section-label">About</p>
+          <h2 class="about-statement">I care about the <em>boundary</em> between software and the people it serves — someone
+              always has to trust it.</h2>
+        </div>
+
+        <div class="fi">
+          <p class="about-copy">
+              Proven foundation across secure software engineering and defensive architecture:
+              access-control models (RBAC, PostgreSQL RLS), multi-tenant data isolation, API rate
+              limiting, webhook signature validation, strict input validation, and tamper-evident
+              auditing — shipped across production full-stack apps, desktop systems, and kernel-level
+              research prototypes.
+          </p>
+          <p class="achievements">President · Science Society, D.S. Senanayake College, Colombo 07 (2022)<br>Junior Colors Award · Scouting (2014)</p>
+        </div>
+
+        <div class="edu-list">
+          <div class="edu-item fi">
+            <div class="edu-info">
+              <h4>BSc (Hons) Cyber Security &amp; Digital Forensics — Kingston University</h4>
+              <p>Cryptography &amp; Network Security · Threat Hunting Analysis &amp; Mitigation · Internet Protocols &amp; Services</p>
+            </div>
+            <span class="edu-year">2026–27</span>
+          </div>
+          <div class="edu-item fi fi-d1">
+            <div class="edu-info">
+              <h4>Pearson BTEC Level 5 HND Computing (Cyber Security) — ESOFT Metro Campus</h4>
+              <p>Distinction · Information Security Management · Applied Cryptography · Digital Forensics · Database Development</p>
+            </div>
+            <span class="edu-year">2025–26</span>
+          </div>
+          <div class="edu-item fi fi-d2">
+            <div class="edu-info">
+              <h4>Level 3 Diploma in Information Technology — ESOFT Metro Campus</h4>
+              <p>Distinction · Software Engineering · Python &amp; C# · Networking Fundamentals</p>
+            </div>
+            <span class="edu-year">2024–25</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HANDS-ON SECURITY TRAINING — Hack The Box strip -->
+    <section class="training" aria-label="Hands-on security training">
+      <div class="container">
+        <div class="section-head fi">
+          <p class="section-label">Hands-on training · Hack The Box</p>
+        </div>
+        <div class="training-grid">
+          <div class="edu-item fi">
+            <p class="k">Defensive Operations · DFIR</p>
+            <h3>Advanced Sherlock labs</h3>
+            <p>Incident investigation end-to-end: Brutus, Mango Bleed, Dream Job–2, RomCom — threat-oriented evidence work and mitigation.</p>
+          </div>
+          <div class="edu-item fi fi-d1">
+            <p class="k">Reverse Engineering</p>
+            <h3>SpookyPass challenge</h3>
+            <p>Static and dynamic analysis to defeat binary protections and recover hidden credentials.</p>
+          </div>
+          <div class="edu-item fi fi-d2">
+            <p class="k">Infrastructure Foundations</p>
+            <h3>Linux &amp; Windows security</h3>
+            <p>Core modules on OS internals, access permissions, and hardening fundamentals across both ecosystems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
