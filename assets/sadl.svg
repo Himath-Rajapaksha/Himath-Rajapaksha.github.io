@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
-  <rect width="800" height="450" fill="#0f0f0f"/>
-  <rect x="40" y="40" width="720" height="370" rx="18" fill="none" stroke="#1f1f1f" stroke-width="1"/>
-  <text x="80" y="200" fill="#fbfbfb" font-family="Geist, Inter, -apple-system, sans-serif" font-size="72" font-weight="700" letter-spacing="-2">SADL</text>
-  <text x="80" y="260" fill="#bababa" font-family="Geist, Inter, -apple-system, sans-serif" font-size="22" font-weight="400">eBPF kernel telemetry &middot; supply-chain defense &middot; thesis</text>
-  <text x="80" y="360" fill="#545454" font-family="ui-monospace, Geist Mono, monospace" font-size="14">Final-Year Research</text>
-</svg>

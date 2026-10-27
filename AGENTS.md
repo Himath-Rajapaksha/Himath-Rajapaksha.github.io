@@ -54,7 +54,7 @@ Himath-Rajapaksha/                  # working dir (not a git repo)
         ├── portrait.jpg            # hero (1469×1071, loading="eager")
         ├── MacTop.png              # single tracked casing
         ├── Huddl.png, AFO.png, Cap.png
-        └── devpad.svg, shipnotes.svg, whitespace.svg, smartcrm.svg, kickblast.svg, sadl.svg   # unused tiles from the abandoned restyle
+        └── devpad.png, shipnotes.png, whitespace.png, smartcrm.png, kickblast.png, sadl.png, 3y3.png   # regenerated 2026-10-27 replacing the six SVG placeholder tiles — 3 live screenshots + 4 Apple-style mock tiles
 ```
 
 The git repo is `Himath-Rajapaksha.github.io/` (remote: origin/main). The
