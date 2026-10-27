@@ -997,6 +997,23 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
       for (var i = 0; i < els.length; i++) obs.observe(els[i]);
     })();
+
+    // DevTools easter egg — for the ones who open the console
+    (function() {
+      console.log("%chimath.work", "color:#E85D4A;font-weight:700;font-size:18px;line-height:1.6");
+      console.log("%cGood eye. Everything here is client-side by design.\nSay hi: window.himath.whoami() or window.himath.contact()", "color:#6B6B6B");
+      window.himath = {
+        version: "1.0 — hand-rolled, zero dependencies",
+        whoami: function() {
+          return "Himath Rajapaksha — Application Security-focused student. Rule one of secrets: don't put them in front-end code. (There are none here.)";
+        },
+        contact: function() {
+          var el = document.getElementById('contact');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          return "Scrolling you to Drop me a line…";
+        }
+      };
+    })();
   </script>
 
 
