@@ -192,7 +192,9 @@
     .hero-stage{max-width:var(--size-frame);margin:0 auto}
 
     /* Mobile inset: text/portrait bundle only — the two .marquee-row stay full-bleed */
-    .hero-stage > :not(.marquee-row){padding-inline:20px}
+    @media (max-width:1199.98px){
+      .hero-stage > :not(.marquee-row){padding-inline:20px}
+    }
 
     .marquee-row{overflow:hidden;white-space:nowrap}
     .marquee-track{
@@ -254,8 +256,8 @@
     .work-grid{display:grid;gap:var(--space-sm);grid-template-columns:1fr;margin-top:var(--space-md);position:relative;z-index:1}
     @media (min-width:1200px){
       .work-grid{grid-template-columns:612fr 410fr}
-      /* Desktop restore: measured 1120px content width, no inline inset */
-      .container,.hero-stage > :not(.marquee-row){padding-inline:0}
+      /* Desktop restore: measured 1120px content width, no inline inset (hero bundle none needed — its inset rule is max-width-scoped) */
+      .container{padding-inline:0}
     }
 
     .project-card{position:relative;display:block;overflow:hidden;padding:var(--space-sm);background:var(--color-surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--hairline);border-radius:var(--radius-card);text-decoration:none}
