@@ -50,6 +50,7 @@ Himath-Rajapaksha/                  # working dir (not a git repo)
     ├── CNAME                       # himath.work (GitHub Pages custom domain)
     ├── robots.txt                  # FROZEN — never edit
     ├── sitemap.xml
+    ├── favicon.ico + favicon-16x16.png + favicon-32x32.png + apple-touch-icon.png + android-chrome-192x192.png + android-chrome-512x512.png + site.webmanifest   # favicon set unwrapped from favicon_io.zip (2026-10-27); keep at ROOT
     └── assets/                     # portrait + project tile images (screenshots + mock tiles)
         ├── portrait.jpg            # hero (1469×1071, loading="eager")
         ├── MacTop.png              # single tracked casing
@@ -91,6 +92,7 @@ chooses to publish.
 - Breakpoints: `max-width:900px` (dead `.project-row` rules — see Known issues), `768px` (headline 26px, flip-wrap block, tighter `.btn`, projects-grid → 1fr @ :519), `640px` (hero padding; a redundant second `.projects-grid` 1fr rule @ :721).
 - `prefers-reduced-motion: reduce` freezes `.flip-track`, `.eyebrow-dot`, and `.btn` transitions only (style-final). It does NOT zero `.fi` reveals — extending coverage is a sanctioned nicety (see Known issues).
 - Images: `loading="lazy"` except the hero portrait (`loading="eager"`). The portrait carries real-dimension attrs (`width="1469" height="1071"`) paired with `height: auto` on `.hero-portrait` — any new width/height attr must pair with `height:auto` or the height hint locks and distorts. Card `<img>`s currently have NO attrs (deployed parity; see Known issues). Keep `alt` text descriptive.
+- **Favicons live at repo ROOT, not assets/** (`favicon.ico` auto-discovery + `<head>` link tags + `site.webmanifest` with name/short_name from brand facts). Don't move them into assets/ unless re-wiring the links in the same change.
 - **Dead CSS (render-none — don't activate):** `.hero-portrait img` + `.hero-portrait:hover img` (grayscale/hover targets a child `<img>` that doesn't exist; the portrait renders in COLOR and hover does nothing), `.project-row`/`.project-row.reverse` (no such elements), `.contact-info` (unreferenced). Re-aiming or deleting them changes/postpones visuals — owner's call.
 - Git commits: short imperative subject, often `feat:`/`fix:`/`Update`. Keep subjects concise.
 
