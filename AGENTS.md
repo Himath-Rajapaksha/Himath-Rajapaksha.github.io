@@ -50,7 +50,7 @@ Himath-Rajapaksha/                  # working dir (not a git repo)
     ├── CNAME                       # himath.work (GitHub Pages custom domain)
     ├── robots.txt                  # FROZEN — never edit
     ├── sitemap.xml
-    └── assets/                     # portrait + project screenshots
+    └── assets/                     # portrait + project tile images (screenshots + mock tiles)
         ├── portrait.jpg            # hero (1469×1071, loading="eager")
         ├── MacTop.png              # single tracked casing
         ├── Huddl.png, AFO.png, Cap.png
