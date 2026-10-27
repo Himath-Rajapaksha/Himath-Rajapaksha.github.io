@@ -1,16 +1,26 @@
 # AGENTS.md — Personal Branding Repo
 
+> Note: mirrored to `/home/anorak/Himath-Rajapaksha/AGENTS.md` (working dir copy
+> without the git repo). Update both when this file changes.
+
 ## What this repo is
 
 Personal branding hub for **Himath Rajapaksha** — a static portfolio site
 (GitHub Pages) plus resume binaries. No build system, no framework: one
 self-contained `index.html` with inline CSS/JS.
 
+**Design authority: the deployed himath.work build** (origin/main as of
+`19dc66e`). On 2026-10-27 the owner rejected the rajib-kabir restyle at preview
+("design is not the same as i thought — major issues") and `index.html` was
+restored to the deployed design (commits `419eeb9`, `e21e00d` + history
+`824531a..7e66d19` keeps the abandoned restyle). Do not re-theme or restyle
+without explicit owner direction.
+
 ## Brand facts (single source of truth)
 
 - **Name:** Himath Rajapaksha (full: R M Himath Hansada Rajapaksha)
 - **Title/tagline:** Application Security Engineer & Full-Stack Developer
-- **Hero carousel titles:** "FullStack Security Developer", "DevSecOps Architect", "Application Security Engineer"
+- **Hero flip-track titles:** "FullStack Security Developer", "DevSecOps Architect", "Application Security Engineer"
 - **Location:** Colombo, Sri Lanka
 - **Email:** himath.hr@gmail.com
 - **Phone:** +94-772610027
@@ -28,83 +38,89 @@ meta, and the resume files. If one changes, update all.
 
 ```
 Himath-Rajapaksha/                  # working dir (not a git repo)
-├── AGENTS.md                       # this file
+├── AGENTS.md                       # mirror of this file
 ├── R M Himath Hansada Rajapaksha - Rsesume 2026aug07.docx
 ├── R M Himath Hansada Rajapaksha - Rsesume 2026aug07.pdf
 └── Himath-Rajapaksha.github.io/    # the actual git repo (GitHub Pages)
     ├── index.html                  # entire site (HTML + inline CSS/JS)
-    ├── robots.txt
+    ├── CNAME                       # himath.work (GitHub Pages custom domain)
+    ├── robots.txt                  # FROZEN — never edit
     ├── sitemap.xml
-    └── assets/                     # portrait + project screenshots + SVG tiles
-        ├── portrait.jpg            # hero (loading="eager")
-        ├── MacTop.png              # single tracked casing (consolidated 2026-10-26)
+    └── assets/                     # portrait + project screenshots
+        ├── portrait.jpg            # hero (1469×1071, loading="eager")
+        ├── MacTop.png              # single tracked casing
         ├── Huddl.png, AFO.png, Cap.png
-        └── devpad.svg, shipnotes.svg, whitespace.svg, smartcrm.svg, kickblast.svg, sadl.svg   # project placeholder tiles
+        └── devpad.svg, shipnotes.svg, whitespace.svg, smartcrm.svg, kickblast.svg, sadl.svg   # unused tiles from the abandoned restyle
 ```
 
-The git repo is `Himath-Rajapaksha.github.io/` (remote: origin/main). Run git
-commands with `-C` or `cd` into it.
+The git repo is `Himath-Rajapaksha.github.io/` (remote: origin/main). The
+owner pushes manually — never push. Local main was merged with origin/main
+(2026-10-27), so `git push origin main` fast-forwards whenever the owner
+chooses to publish.
 
 ## Tech stack
 
 - Static HTML/CSS/JS only — no package.json, no bundler, no framework.
-- Fonts: Clash Grotesk 500/600 (`--font-display`) + Inter 400/700/900 (`--font-body`), loaded from the Fontshare/Google Fonts CDNs with preconnects — no vendoring.
-- Deployed via GitHub Pages (branch deploy, not Actions — see commit `23112fa`).
+- Font: Inter (300–700) from Google Fonts CDN with preconnects — no vendoring, no second family.
+- Deployed via GitHub Pages (branch deploy, not Actions).
 - Live URL: https://himath.work/
 
 ## Common tasks
 
 - **Preview locally:** open `index.html` in a browser (or `python3 -m http.server` in the site dir).
-- **Deploy:** commit + push to `main` of `Himath-Rajapaksha.github.io`; Pages rebuilds.
+- **Deploy:** owner commits + pushes to `main` of `Himath-Rajapaksha.github.io`; Pages rebuilds. Do not push on the owner's behalf.
 - **Update resume:** regenerate both `.docx` and `.pdf` (keep the `2026aug07`-style date suffix; note the existing "Rsesume" typo in filenames — decide whether to rename and update any links).
-- **Add a project:** add screenshot to `assets/`, add an `<a class="project-card">` in the projects grid in `index.html`, and update alt text.
+- **Add a project:** add screenshot to `assets/`, add an `<a class="project-card">` in `projects-grid`, and update alt text.
 - **Update SEO:** edit the meta/JSON-LD in `<head>` of `index.html` and bump `sitemap.xml`'s `lastmod`; `robots.txt` is frozen — do not edit it.
 
 ## Conventions
 
 - Single file: all markup, styles, and scripts live in `index.html`. Keep it that way unless there's a strong reason to split.
-- Inline CSS uses the rajib-kabir token set in `:root` — colors (`--color-bg #F5F1EC`, `--color-ink #1E1A1C`, `--color-ink-soft #3B3B3B`, `--color-body #2C2D2F`, `--color-white`, `--color-surface`, `--hairline`, `--gradient-brand`, `--gradient-blush`), radii (`--radius-card 20px`, `--radius-field 16px`, `--radius-pill 60px`, `--radius-btn 10px`), spacing (`12/16/30/100/120px`), sizes (`--size-container 1120px`, `--size-frame 1280px`, `--size-header 51px`), `--duration-reveal 600ms`. Reuse tokens; don't hardcode colors.
-- `--color-muted` and `--color-mist` are declared but deliberately NEVER consumed: `#7E8083` fails AA at body sizes and nothing in this build is a large-bold muted text. Keep them unused — the batteries assert zero `var()` uses.
-- Animations (motion inventory): hero marquees (`.marquee-track` via `marqueeL/R`, 36 s/46 s, `aria-hidden`, decorative copy), tooling ticker (`.ticker-track`, 30 s, IntersectionObserver pauses it offscreen), scroll reveals (`.fi` → `.v` via IntersectionObserver threshold .15 with `.fi-d1..3` stagger, 600 ms), card hover recipe (img scale 1.1 + blur 7px; blush overlay fades in at rotate −6°, wired to hover AND `:focus-visible`). No sticky section headings — all `.section-head`s are plain flow. The header is absolute and intentionally non-sticky (scrolls away).
-- `prefers-reduced-motion: reduce` rules must stay style-final: zero out animation/transition durations, reset `scroll-behavior` to `auto`, freeze marquee/ticker tracks, force `.fi` visible. The `<head>` `<noscript>` guard keeps reveals visible without JS — when touching motion, QA both (static checks cover them).
-- CTA-only gradient: `--gradient-brand` appears only on `.btn--gradient` CTAs — exactly one per surface family (header, hero, contact). Gradient button labels are `var(--color-ink)`: white failed the ≥3:1 endpoint gate on `#FF7A38` (2.59:1 computed), so the ruled fallback switched labels to ink (see design-spec ruling); don't revert to white without re-measuring. Fixed short centered labels are safe (worst-case label band ≈5.0:1); any NEW longer or left-justified CTA label re-opens the G6 gate on the violet end (endpoint 4.29:1); the white label is dead (2.59:1 on #FF7A38) — don't revert without re-measuring.
-- No drop shadows: depth comes from frosted translucency (`--color-surface` + `backdrop-filter`) and hairlines (`--hairline`); cards carry no `box-shadow` (batteries fail anything but `none`).
-- Responsive breakpoints: `min-width:768px` (nav links appear), `min-width:1200px` (work masonry `612fr 410fr`, training 3-up), with mobile variants `max-width:767.98px` (section padding 80/64) and `max-width:640px` (footer stacks single-column).
-- Images: `loading="lazy"` except the hero portrait (`loading="eager"`, `fetchpriority="high"`). Every `<img>` must carry BOTH `width` and `height` attributes — it's the no-layout-shift gate. Keep `alt` text descriptive. QA batteries must check every `<img>` width/height attribute against the real file's dimensions — the portrait attr-vs-file drift (1600×686 vs 1469×1071 inherited from the old build) was caught only manually.
-- Git commits: short imperative subject, often `feat:`/`fix:`/`Update` (see log: `feat: add SEO meta tags…`, `Fix footer: …`, `Update portfolio: …`). Keep subjects concise.
+- Inline CSS uses the deployed token set in `:root` — `--bg #FFFFFF`, `--text #1A1A1A`, `--accent #E85D4A`, `--muted #6B6B6B`, `--border #E8E6E1`, `--card-bg #FFFFFF`, `--sans` Inter. Reuse tokens; don't hardcode colors. Accent use is sparing (active nav label, flip words, eyebrow dot, hover accents).
+- **Nav = CIR-TABS radio pattern** (fixed top-center): three hidden radios `name="nav"` (`#nav-home` carries the single `checked`) + styled labels; scroll-spy JS checks the active radio from `scrollY + innerHeight/3` and forces the last index near page bottom; label clicks `scrollIntoView` smooth with an 800 ms scroll-lock. Don't add a second `checked` attribute — one only (HTML spec resolves dup:checked against the LAST one).
+- **Hero flip-track rotator**: `.flip-wrap` (overflow hidden, 1.2em) + `#flipTrack` flex column stepped via `translateY(-idx * wordHeight)` every 3.7 s; word list duplicated in markup for the wrap; JS measures `.flip-word` offsetHeight. Keep `aria-live="polite"` + the `aria-label` on the wrapper.
+- Reveal system: `.fi` (opacity 0 + translateY(20px), 0.7 s) gains `.v` via IntersectionObserver (threshold 0.12, rootMargin bottom −30px, unobserve after reveal); stagger classes `.fi-d1..d5` (0.1–0.5 s); no-IO fallback adds `.v` to everything. The `<head>` `<noscript>` guard (`.fi { opacity:1 !important; transform:none !important }`) keeps content visible without JS — keep it after the font link, before the `<style>`.
+- Tools marquee: one `.marquee-track` row, 16-item list duplicated 2×, `@keyframes marquee-scroll` translateX 0→−50%. Animated by CSS only (no JS pause).
+- Projects: `.projects-grid` is a hard 2-col grid (`1fr 1fr`, gap 4px, radius 0), mobile → 1fr at 640px; cards are plain `<a>` with `<img>` (no overlays, no blur/scale hover recipe in this design).
+- Contact: `contact-heading` (with `<em>` on "Drop me a line.") + two plain buttons `.btn-dark` (Email) and `.btn-light` (LinkedIn). Footer is a single copyright line.
+- Breakpoints: `max-width:900px` (dead `.project-row` rules — see Known issues), `768px` (headline 26px, flip-wrap block, tighter `.btn`), `640px` (hero padding, grid 1-col).
+- `prefers-reduced-motion: reduce` freezes `.flip-track`, `.eyebrow-dot`, and `.btn` transitions only (style-final). It does NOT zero `.fi` reveals — extending coverage is a sanctioned nicety (see Known issues).
+- Images: `loading="lazy"` except the hero portrait (`loading="eager"`). The portrait carries real-dimension attrs (`width="1469" height="1071"`) paired with `height: auto` on `.hero-portrait` — any new width/height attr must pair with `height:auto` or the height hint locks and distorts. Card `<img>`s currently have NO attrs (deployed parity; see Known issues). Keep `alt` text descriptive.
+- **Dead CSS (render-none — don't activate):** `.hero-portrait img` + `.hero-portrait:hover img` (grayscale/hover targets a child `<img>` that doesn't exist; the portrait renders in COLOR and hover does nothing), `.project-row`/`.project-row.reverse` (no such elements), `.contact-info` (unreferenced). Re-aiming or deleting them changes/postpones visuals — owner's call.
+- Git commits: short imperative subject, often `feat:`/`fix:`/`Update`. Keep subjects concise.
 
 ## SEO / structured data — don't break these
 
 - `<title>`, meta description/keywords, canonical URL, OG + Twitter cards, and the JSON-LD `Person` block in `<head>`.
-- `sitemap.xml` (single URL, priority 1.0; bump `lastmod` when real content changes) and `robots.txt` — robots is frozen: do not modify it, ever.
+- **Canonical URL = `https://himath.work/` everywhere** in index.html (canonical, og:url, og:image, twitter:image, JSON-LD `url`/`image`) and in `sitemap.xml` (`lastmod 2026-10-27`). The old-domain himath-rajapaksha.github.io refs were migrated 2026-10-27.
+- `robots.txt` is FROZEN: it still points `Sitemap:` at the old domain — that resolves via the Pages redirect; do not modify robots.txt to "fix" it.
 - If the canonical/site URL changes, update all of the above plus `sameAs` links.
 
 ## Known issues / gotchas (fix when touching related code)
 
-Status after the 2026-10-27 rajib-kabir restyle — the theme swapped the 2026-10-26
-build's fonts/palette/radius/spacing/breakpoints/motion (see Conventions); the QA
-sweep of that restyle is in the git log (gradient CTA label switched to ink for
-contrast, ticker strip padding + aria-label casing fixed, footer tagline restored
-to the full source title line). Keep this list live: add new findings here, don't
-reopen the closed ones.
+Status after the 2026-10-27 restore to the deployed himath.work design. The
+restore deliberately re-imported some deployed code debt (it was only ever
+cleaned in the unpushed restyle builds). Keep this list live: add new findings
+here, don't reopen the closed ones.
 
-1. **RESOLVED (2026-10-26): duplicate `checked` on nav radios** — single `checked` remains on `#nav-home`; `#nav-work` has none. (The radio-nav pattern is gone entirely since the restyle; nav is plain anchors now.)
-2. **RESOLVED (2026-10-26): duplicate `.btn` CSS** — consolidated into a single `.btn` rule in the design-system style block.
-3. **RESOLVED (2026-10-26): orphan CSS fragment** near the old `.contact-info` rule — stray properties with no selector were removed.
-4. **RESOLVED (2026-10-26): extra closing `</div>`** in the projects section — removed; markup balanced.
-5. **RESOLVED (2026-10-26): undefined classes** — `.section-label` and `.section-desc` are styled; stale `.project-row` (and `.reverse`) references dropped.
-6. **RESOLVED (2026-10-26): asset casing** — single tracked `assets/MacTop.png`; HTML and tree reference that one casing only.
-7. **RESOLVED (2026-10-26): unstyled `section-label`/`section-desc` headings** — styled in the redesign (overlaps item 5).
-8. **OPTIONAL TIDY (2026-10-27, final-review triage): redundant nested `aria-hidden="true"` span** on the card-overlay ↗ arrow (the parent `.card-overlay` is already `aria-hidden`) — cosmetic, zero AT effect; optional post-merge tidy (the same classification applies to the marquee row/track nesting).
-9. **OPEN (2026-10-27, final-review triage): heading-level skip h2 → h4** in the education/training cards (inherited source semantics) — retagging the edu-card h4s to h3 is a sanctioned cheap follow-up (CSS already covers `.edu-item h3,h4` identically), but the training section's floating h3s must first get a deliberate heading-strategy decision; keep OPEN until then.
-10. **OPEN (2026-10-27, owner's call): footer Navigation column is a plain `<div>`, not `<nav>`** — `<nav aria-label="Site">` is an owner-optional nicety; all links stay keyboard-reachable either way.
-11. **RESOLVED (2026-10-27, final-fix wave): content edge-flush below 1200px** — 20px inline inset applied to `.container`, the hero portrait/text/CTA bundle (`.hero-stage > :not(.marquee-row)`), and `.footer-card` below 1200px (restored on desktop); the two hero `.marquee-row`s remain full-bleed; no vertical paddings or ≥1200px geometry changed.
-12. **DECLINED (2026-10-27, owner preview): the measured cards-over-headings sticky layering** — the spec's `.section-head` sticky effect (cards riding over the section label + display h2) stranded crisp letter fragments in the work grid's bare 12px gaps for the entire section scroll; owner ruled it a glitch at preview (`Shipped systems…` text visibly "on bg"). All `.section-head` sticky rules removed; headings flow normally above their grids. Don't re-add `position:sticky` to `.section-head` without owner consent — the frosted card bodies blur what's behind them, but gaps never can.
+1. **RESOLVED (2026-10-27, restore): duplicate `checked` on nav radios** — single `checked` on `#nav-home`; `#nav-work`/`#nav-contact` carry none.
+2. **OPEN (deployed debt, inert): duplicate `.btn` rules** (~:294 px-based, ~:586 rem-based) — the later rem rule wins by cascade; consolidation must keep the later values, or nothing changes visually.
+3. **OPEN (deployed debt, inert): orphan CSS fragment** right after `.contact-info` — selectorless `outline`/`transition` declarations with a dangling `}`; browser-parsed as junk, zero effect. Remove only with the `.contact-info` dead-rule decision.
+4. **RESOLVED (2026-10-27, restore): stray extra `</div>`** in the projects section (after the grid close) — removed; markup balanced.
+5. **OPEN (deployed debt): dead selectors** `.hero-portrait img`/`.hero-portrait:hover img` (grayscale hover never fires — portrait is color), `.project-row`/`.project-row.reverse`, `.contact-info`. Deleting = invisible; RE-AIMING any of them = a visual change needing owner approval.
+6. **OPEN (deployed debt): `.section-label`/`.section-desc` unstyled** — "Selected Work" heading renders as a default-weight h2/p (deployed look). Styling them = visual change, owner's call.
+7. **RESOLVED (2026-10-27, restore + merge): asset casing** — tree + HTML both reference `assets/MacTop.png` (origin's dual-case blobs were consolidated to the single `MacTop.png` by the local rename, and the restore re-cased the HTML ref; on case-sensitive Pages either side alone would have 404'd the card image).
+8. **OPEN (CLS nicety): card imgs lack width/height attrs** (`MacTop.png` 1672×941, Huddl/AFO/Cap too) — below-fold lazy images, deployed parity. Adding attrs requires the `height:auto`-paired pattern (see Conventions).
+9. **OPEN (a11y nicety): prefers-reduced-motion doesn't cover `.fi` reveals** — extending the frozen set is sanctioned; don't shoehorn other motion changes at the same time.
+10. **LOCKED: robots.txt** at `https://himath-rajapaksha.github.io/sitemap.xml` (old domain) — frozen per rule; resolves via the custom-domain redirect. Treat as correct-by-construction.
+11. **HISTORY NOTE: the rajib-kabir restyle (commits `824531a..7e66d19`) is rejected design history** — its extra sections (training, education, frosted cards, sticky section heads, ticker, footer nav) do NOT exist in this design. mined for content only, never for style, without owner direction.
 
 ## Do not
 
+- Don't push to origin — **the owner pushes manually.**
 - Don't commit secrets, tokens, or `.env` files.
 - Don't rename the site directory or break the `Himath-Rajapaksha.github.io` GitHub Pages naming.
-- Don't change the canonical URL without updating sitemap + robots + JSON-LD.
+- Don't change the canonical URL without updating sitemap + JSON-LD + meta (robots.txt stays frozen).
 - Don't add a build step or framework unless explicitly requested — this is intentionally a zero-dependency static site.
+- Don't re-theme (Quartz/rajib-kabir or otherwise) — the deployed look is the owner-approved design; 2026-10-27's restyle was rejected at preview.
 - Don't "fix" the resume filename typo (`Rsesume`) silently — confirm with the owner first, since external links may reference it.
