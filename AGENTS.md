@@ -55,7 +55,8 @@ Himath-Rajapaksha/                  # working dir (not a git repo)
         ├── portrait.jpg            # hero (1469×1071, loading="eager")
         ├── MacTop.png              # single tracked casing
         ├── Huddl.png, AFO.png, Cap.png
-        └── devpad.png, shipnotes.png, whitespace.png, smartcrm.png, kickblast.png, sadl.png, 3y3.png   # regenerated 2026-10-27 replacing the six SVG placeholder tiles — 3 live screenshots + 4 Apple-style mock tiles
+        ├── devpad.png, shipnotes.png, whitespace.png, smartcrm.png, kickblast.png, sadl.png, 3y3.png   # regenerated 2026-10-27 replacing the six SVG placeholder tiles — 3 live screenshots + 4 Apple-style mock tiles
+        └── founder-skill.png, bytesmith.png, prompt-vault.png   # 2026-11-02 skills+prompts batch — 2 mocks (founder-skill, prompt-vault) + 1 live hero capture (bytesmith), all 1672×941
 ```
 
 The git repo is `Himath-Rajapaksha.github.io/` (remote: origin/main). The
@@ -123,6 +124,7 @@ here, don't reopen the closed ones.
 10. **LOCKED: robots.txt** — locally reads `Sitemap: https://himath.work/sitemap.xml` (owner's `7dd1ba2` migration; publishes on push). Never edit robots.txt; treat as correct-by-construction.
 11. **HISTORY NOTE: the rajib-kabir restyle (commits `824531a..7e66d19`) is rejected design history** — its extra sections (training, education, frosted cards, sticky section heads, ticker, footer nav) do NOT exist in this design. mined for content only, never for style, without owner direction.
 12. **RESOLVED (2026-10-27): 11-card odd grid** — 3y3 moved to the closing row and spanned full-width via `.project-card.full { grid-column: 1 / -1; }`: the grid now ends in five full rows plus one full-width quiet closer — no empty cell. If cards are added or removed later, re-check parity (even counts keep the tight grid; an odd count needs a spanning closer).
+13. **RESOLVED (2026-11-02): 14-card grid (skills+prompts batch)** — founder-skill + bytesmith added as a pair row after ShipNotes, prompt-vault added **full-width** before 3y3. Grid = six pair-rows + two full-width rows (12 regular + 2 full), no empty cell. Tile sources: `founder-skill.html`/`prompt-vault.html` mocks + Round-3 CSS in `mocks-apple/`, rendered by `render3.sh` (canonical flags, md5 determinism, `qa3.js` bleed-aware QA); `bytesmith.png` is a live capture of bytesmith-rust.vercel.app. Rule intact: mocks bleed by design (founder-skill card → right edge; prompt-vault chips → both edges) while prose never touches the tile margins.
 
 ## Do not
 
