@@ -259,27 +259,23 @@
     }
 
     .flip-wrap {
-      display: inline-block;
-      overflow: hidden;
-      height: 1.2em;
+      display: inline-grid;
       vertical-align: bottom;
-      position: relative;
       color: var(--accent);
       line-height: 1.2;
     }
 
-    .flip-track {
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.55s cubic-bezier(0.77, 0, 0.18, 1);
-      gap: 0;
-    }
-
     .flip-word {
-      display: block;
+      grid-area: 1 / 1;
       line-height: 1.2;
       white-space: nowrap;
       font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .flip-word.is-active {
+      opacity: 1;
     }
 
     .sub {
@@ -713,10 +709,10 @@
 
     @media (max-width: 768px) {
       .headline {
-        font-size: 26px;
+        font-size: clamp(20px, 6.2vw, 26px);
       }
       .flip-wrap {
-        display: block;
+        display: grid;
         margin-top: 8px;
       }
       .btn {
@@ -736,7 +732,7 @@
 
     /* Accessibility */
     @media (prefers-reduced-motion: reduce) {
-      .flip-track {
+      .flip-word {
         transition: none;
       }
       .eyebrow-dot {
@@ -772,13 +768,10 @@
 
         <h1 class="headline fi fi-d1">
           Himath Rajapaksha is a
-          <span class="flip-wrap" aria-live="polite" aria-label="job titles carousel">
-            <span class="flip-track" id="flipTrack">
-              <span class="flip-word">FullStack Security Developer</span>
-              <span class="flip-word">DevSecOps Architect</span>
-              <span class="flip-word">Application Security Engineer</span>
-              <span class="flip-word">FullStack Security Developer</span>
-            </span>
+          <span class="flip-wrap" aria-live="polite" aria-label="Job titles">
+            <span class="flip-word is-active">FullStack Security Developer</span>
+            <span class="flip-word" aria-hidden="true">DevSecOps Architect</span>
+            <span class="flip-word" aria-hidden="true">Application Security Engineer</span>
           </span>
         </h1>
 
@@ -980,22 +973,23 @@
       update();
     })();
 
-    // Flip-track word animation
+    // Hero title rotator — in-place fade, no vertical clipping
     (function() {
-      var track = document.getElementById('flipTrack');
-      var words = ['FullStack Security Developer', 'DevSecOps Architect', 'Application Security Engineer'];
+      var words = Array.prototype.slice.call(document.querySelectorAll('.flip-word'));
+      if (words.length < 2) return;
       var DURATION = 3700;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var FADE_OUT = reduce ? 0 : 320;
       var idx = 0;
 
-      function getWordHeight() {
-        var word = track.querySelector('.flip-word');
-        return word ? word.offsetHeight : 0;
-      }
-
       setInterval(function() {
-        idx = (idx + 1) % words.length;
-        var height = getWordHeight();
-        track.style.transform = 'translateY(-' + idx * height + 'px)';
+        words[idx].classList.remove('is-active');
+        words[idx].setAttribute('aria-hidden', 'true');
+        setTimeout(function() {
+          idx = (idx + 1) % words.length;
+          words[idx].classList.add('is-active');
+          words[idx].removeAttribute('aria-hidden');
+        }, FADE_OUT);
       }, DURATION);
     })();
 
