@@ -56,7 +56,8 @@ Himath-Rajapaksha/                  # working dir (not a git repo)
         ├── MacTop.png              # single tracked casing
         ├── Huddl.png, AFO.png, Cap.png
         ├── devpad.png, shipnotes.png, whitespace.png, smartcrm.png, kickblast.png, sadl.png, 3y3.png   # regenerated 2026-10-27 replacing the six SVG placeholder tiles — 3 live screenshots + 4 Apple-style mock tiles
-        └── founder-skill.png, bytesmith.png, prompt-vault.png   # 2026-11-02 skills+prompts batch — 2 mocks (founder-skill, prompt-vault) + 1 live hero capture (bytesmith), all 1672×941
+        ├── founder-skill.png, bytesmith.png, prompt-vault.png   # 2026-11-02 skills+prompts batch — 2 mocks (founder-skill, prompt-vault) + 1 live hero capture (bytesmith), all 1672×941
+        └── og-cover.png            # 2026-11-14 social preview card (1200×630) — the og:image / twitter:image target, type-led with the hero portrait on the right
 ```
 
 The git repo is `Himath-Rajapaksha.github.io/` (remote: origin/main). The
@@ -102,7 +103,8 @@ chooses to publish.
 
 - `<title>`, meta description/keywords, canonical URL, OG + Twitter cards, and the JSON-LD `Person` block in `<head>`.
 - **`<title>` is just `Himath.work`** (2026-10-27, owner directive — clean browser tab). The descriptive tagline stays in og:title / twitter:title / JSON-LD `name` / meta description — don't re-expand `<title>` without owner direction.
-- **Canonical URL = `https://himath.work/` everywhere** in index.html (canonical, og:url, og:image, twitter:image, JSON-LD `url`/`image`) and in `sitemap.xml` (`lastmod 2026-10-27`). The old-domain himath-rajapaksha.github.io refs were migrated to himath.work by the owner's `7dd1ba2`; the 2026-10-27 restore preserved those URL strings.
+- **Social preview:** `og:image` + `twitter:image` both point at `assets/og-cover.png` (1200×630, 1.91:1, ~250 KB, owner-picked design 2026-11-14) with `og:image:width/height/type/alt` and `twitter:image:alt` alongside; `twitter:card` stays `summary_large_image`. The card is a composed layout — 96 px left margin, kicker / name / accent role / subtitle / `himath.work`, portrait bleeding to the right edge (panel starts at 800 px, `background-position:54%`) — not a page screenshot. Regenerating it means re-rendering the card at exactly 1200×630 with the site's Inter + Space Grotesk and re-exporting to the same path, because chat clients cache the old scrape: WhatsApp, X and Facebook only refetch when the image URL changes or the scraper is re-run.
+- **Canonical URL = `https://himath.work/` everywhere** in index.html (canonical, og:url, og:image, twitter:image, JSON-LD `url`/`image`) and in `sitemap.xml` (`lastmod 2026-11-14`). The old-domain himath-rajapaksha.github.io refs were migrated to himath.work by the owner's `7dd1ba2`; the 2026-10-27 restore preserved those URL strings.
 - `robots.txt` is FROZEN: locally it already reads `Sitemap: https://himath.work/sitemap.xml` (the owner's `7dd1ba2` migration; publishes on the next push), while origin's copy still shows the old domain, which resolves via the Pages redirect in the meantime. Do not modify robots.txt.
 - If the canonical/site URL changes, update all of the above plus `sameAs` links.
 
